@@ -1,15 +1,29 @@
 import { Button, View } from "react-native";
-import { useLogoService } from "../hooks/useLogoService";
+import { useLogoService } from "@/hooks/useLogoService";
 
-export default function Index() {
-  const { addLogo, getLogo, updateLogo, deleteLogo, getAllLogos } =
-    useLogoService();
+export default function Home() {
+  const {
+    addLogo,
+    getLogo,
+    updateLogo,
+    deleteLogo,
+    getAllLogos,
+    generateLogo,
+  } = useLogoService();
 
   const handleAddLogo = async () => {
+    const logoUrl = await generateLogo(
+      "Opulence Designs için zarafet ve sadeliğe odaklanan lüks bir logo, gaming stilinde yarat"
+    );
+    if (!logoUrl) {
+      console.error("Logo generation failed");
+      return;
+    }
     await addLogo({
-      logoUrl: "www.example.com",
-      prompt: "create a logo for a company that makes AI tools",
-      style: "Elegant",
+      logoUrl: logoUrl,
+      prompt:
+        "Opulence Designs için zarafet ve sadeliğe odaklanan lüks bir logo, gaming stilinde yarat",
+      style: "gaming",
       createdAt: new Date(),
     });
   };

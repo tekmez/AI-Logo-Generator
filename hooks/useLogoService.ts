@@ -1,122 +1,114 @@
-import {
-  collection,
-  setDoc,
-  doc,
-  getDoc,
-  updateDoc,
-  deleteDoc,
-  getDocs,
-  CollectionReference,
-} from "firebase/firestore";
-import { db } from "@/firebaseConfig";
+import { httpsCallable } from "firebase/functions";
+import { functions } from "@/firebaseConfig";
 import Logo from "@/types/logo";
 
 export const useLogoService = () => {
-  const logoRef = collection(db, "logos") as CollectionReference<Logo>;
+  // Cloud Functions referansları
+  const addLogoFunction = httpsCallable<
+    Omit<Logo, "id">,
+    { success: boolean; id: string }
+  >(functions, "addLogo");
 
-  // Add a logo to the database
+  const getLogoFunction = httpsCallable<{ id: string }, Logo | null>(
+    functions,
+    "getLogo"
+  );
+
+  const updateLogoFunction = httpsCallable<
+    { id: string; logoData: Partial<Omit<Logo, "id">> },
+    { success: boolean }
+  >(functions, "updateLogo");
+
+  const deleteLogoFunction = httpsCallable<
+    { id: string },
+    { success: boolean }
+  >(functions, "deleteLogo");
+
+  const getAllLogosFunction = httpsCallable<void, Logo[]>(
+    functions,
+    "getAllLogos"
+  );
+
+  const generateLogoFunction = httpsCallable<
+    { prompt: string },
+    { success: boolean; logoUrl: string }
+  >(functions, "generateLogo");
+
+  // Logo ekle
   const addLogo = async (
     logoData: Omit<Logo, "id">
   ): Promise<string | undefined> => {
     try {
-      const docRef = doc(logoRef);
-      await setDoc(docRef, {
-        ...logoData,
-        id: docRef.id,
-      });
-      console.log("Document written with ID: ", docRef.id);
-      return docRef.id;
-    } catch (e) {
-      console.error("Error adding document: ", e);
+      const response = await addLogoFunction(logoData);
+      return response.data.id;
+    } catch (error) {
+      console.error("Add logo failed", error);
       return undefined;
     }
   };
 
-  // Get a logo from the database
+  // Logo getir
   const getLogo = async (id: string): Promise<Logo | null> => {
     try {
-      const docRef = doc(logoRef, id);
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        return { ...docSnap.data(), id: docSnap.id } as Logo;
-      } else {
-        console.log("No such document!");
-        return null;
-      }
-    } catch (e) {
-      console.error("Error getting document: ", e);
+      const response = await getLogoFunction({ id });
+      return response.data;
+    } catch (error) {
+      console.error("Fetch logo failed", error);
       return null;
     }
   };
 
-  // Update a logo in the database
+  // Logo güncelle
   const updateLogo = async (
     id: string,
-    logoData: Omit<Logo, "id">
+    logoData: Partial<Omit<Logo, "id">>
   ): Promise<boolean> => {
     try {
-      const docRef = doc(logoRef, id);
-      await updateDoc(docRef, logoData);
-      console.log("Document successfully updated!");
-      return true;
-    } catch (e) {
-      console.error("Error updating document: ", e);
+      const response = await updateLogoFunction({ id, logoData });
+      return response.data.success;
+    } catch (error) {
+      console.error("Update logo failed", error);
       return false;
     }
   };
 
-  // Delete a logo from the database
+  // Logo sil
   const deleteLogo = async (id: string): Promise<boolean> => {
     try {
-      const docRef = doc(logoRef, id);
-      await deleteDoc(docRef);
-      console.log("Document successfully deleted!");
-      return true;
-    } catch (e) {
-      console.error("Error deleting document: ", e);
+      const response = await deleteLogoFunction({ id });
+      return response.data.success;
+    } catch (error) {
+      console.error("Delete logo failed", error);
       return false;
     }
   };
 
-  // Clear the database
-  const clearDB = async (): Promise<boolean> => {
-    try {
-      const querySnapshot = await getDocs(logoRef);
-      const deletePromises = querySnapshot.docs.map((document) =>
-        deleteDoc(document.ref)
-      );
-
-      await Promise.all(deletePromises);
-      console.log("Database successfully cleared!");
-      return true;
-    } catch (e) {
-      console.error("Error clearing database: ", e);
-      return false;
-    }
-  };
-
-  // Get all logos from the database
+  // Tüm logoları getir
   const getAllLogos = async (): Promise<Logo[]> => {
     try {
-      const querySnapshot = await getDocs(logoRef);
-      const logos: Logo[] = querySnapshot.docs.map((doc) => {
-        return { ...doc.data(), id: doc.id } as Logo;
-      });
-
-      return logos;
-    } catch (e) {
-      console.error("Error getting all logos: ", e);
+      const response = await getAllLogosFunction();
+      return response.data;
+    } catch (error) {
+      console.error("Fetch all logos failed", error);
       return [];
     }
   };
 
+  const generateLogo = async (prompt: string): Promise<string | undefined> => {
+    try {
+      const response = await generateLogoFunction({ prompt });
+      return response.data.logoUrl;
+    } catch (error) {
+      console.error("Generate logo failed", error);
+      return undefined;
+    }
+  };
   return {
     addLogo,
     getLogo,
     updateLogo,
     deleteLogo,
-    clearDB,
     getAllLogos,
+    generateLogo,
   };
 };
