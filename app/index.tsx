@@ -2,7 +2,7 @@ import { Button, View } from "react-native";
 import { useLogoService } from "../hooks/useLogoService";
 
 export default function Index() {
-  const { addLogo, getLogo, updateLogo, deleteLogo, clearDB, getAllLogos } =
+  const { addLogo, getLogo, updateLogo, deleteLogo, getAllLogos } =
     useLogoService();
 
   const handleAddLogo = async () => {
@@ -43,7 +43,6 @@ export default function Index() {
       <Button title="Get Logo" onPress={handleGetLogo} />
       <Button title="Update Logo" onPress={handleUpdateLogo} />
       <Button title="Delete Logo" onPress={handleDeleteLogo} />
-      <Button title="Clear DB" onPress={clearDB} />
       <Button title="Get All Logos" onPress={handleGetAllLogos} />
     </View>
   );
