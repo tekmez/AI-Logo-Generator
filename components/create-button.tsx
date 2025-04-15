@@ -7,7 +7,7 @@ import { usePromptStore } from "@/store/store";
 export default function CreateButton() {
   const { prompt } = usePromptStore((state) => state);
   return (
-    <View className="absolute bottom-0 left-0 right-0 px-6 pb-6 pt-3">
+    <View className="mt-auto mb-12 px-6 pb-6 pt-3">
       <TouchableOpacity
         onPress={() => console.log(prompt)}
         className="rounded-full overflow-hidden"

@@ -15,7 +15,7 @@ export default function PromptSection() {
         style={{
           borderRadius: 16,
           padding: 12,
-          borderWidth: isFocused ? 1 : 0,
+          borderWidth: 1,
           borderColor: isFocused ? "white" : "transparent",
         }}
       >
