@@ -2,15 +2,14 @@ import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Stars from "@/assets/icons/stars";
-interface CreateButtonProps {
-  onPress: () => void;
-}
+import usePromptStore from "@/store/store";
 
-export default function CreateButton({ onPress }: CreateButtonProps) {
+export default function CreateButton() {
+  const { prompt } = usePromptStore((state) => state);
   return (
     <View className="absolute bottom-0 left-0 right-0 px-6 pb-6 pt-3">
       <TouchableOpacity
-        onPress={onPress}
+        onPress={() => console.log(prompt)}
         className="rounded-full overflow-hidden"
       >
         <LinearGradient
