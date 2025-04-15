@@ -26,6 +26,7 @@ export async function generateLogo(
     {
       input: {
         prompt: prompt,
+        image_size: "square_hd",
       },
     }
   );

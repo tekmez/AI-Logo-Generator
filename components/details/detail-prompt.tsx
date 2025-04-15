@@ -1,12 +1,10 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { Pressable, Text, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { router, useLocalSearchParams } from "expo-router";
+import { router } from "expo-router";
 import Octicons from "@expo/vector-icons/Octicons";
+import { Logo } from "@/types/logo";
 
-const DetailPrompt = () => {
-  const { id } = useLocalSearchParams();
-  console.log(id);
+const DetailPrompt = ({ logo }: { logo: Logo | null }) => {
   return (
     <LinearGradient
       colors={["#27272A", "#943DFF", "#2938DC"]}
@@ -31,11 +29,10 @@ const DetailPrompt = () => {
           </Pressable>
         </View>
         <Text className="text-[#FAFAFA] text-base font-manrope-regular">
-          A professional logo for Harrison & Co. Law Firm, using balanced serif
-          fonts
+          {logo?.prompt}
         </Text>
         <Text className="text-[#FAFAFA] text-xs font-manrope-regular py-1 px-2 rounded-full bg-[#FAFAFA1A] w-[76px] h-[23px] text-center">
-          Monogram
+          {logo?.style}
         </Text>
       </View>
     </LinearGradient>

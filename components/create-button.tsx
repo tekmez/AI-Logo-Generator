@@ -3,13 +3,18 @@ import { View, Text, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Stars from "@/assets/icons/stars";
 import { usePromptStore } from "@/store/store";
-
+import { useLogoService } from "@/hooks/useLogoService";
 export default function CreateButton() {
   const { prompt } = usePromptStore((state) => state);
+  const { generateLogo } = useLogoService();
+  const handleCreate = async () => {
+    const logo = await generateLogo(prompt);
+    console.log(logo);
+  };
   return (
     <View className="mt-auto mb-12 px-6 pb-6 pt-3">
       <TouchableOpacity
-        onPress={() => console.log(prompt)}
+        onPress={handleCreate}
         className="rounded-full overflow-hidden"
       >
         <LinearGradient
