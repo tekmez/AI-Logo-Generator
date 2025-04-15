@@ -25,7 +25,7 @@ function BgGradient(props: any) {
         <Path
           stroke="url(#b)"
           strokeLinejoin="round"
-          strokeWidth={50}
+          strokeWidth={65}
           d="M322.769 148 121.552 271.729c-55.067 33.861-49.313 115.67 9.952 141.489l142.551 62.104c55.762 24.293 65.09 99.466 16.956 136.651L81.277 774"
         />
       </G>

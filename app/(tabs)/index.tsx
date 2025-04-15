@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { SafeAreaView, StyleSheet, StatusBar } from "react-native";
+import { SafeAreaView, StyleSheet, StatusBar, View } from "react-native";
 import BgGradient from "@/components/bg-gradient";
 import Header from "@/components/header";
 import CreateButton from "@/components/create-button";
+import PromptInput from "@/components/prompt-input";
 
 export default function Home() {
   const [prompt, setPrompt] = useState("");
@@ -18,6 +19,13 @@ export default function Home() {
       <StatusBar barStyle="light-content" />
       <BgGradient style={StyleSheet.absoluteFill} />
       <Header />
+      <View className="px-6">
+        <PromptInput
+          prompt={prompt}
+          onPromptChange={setPrompt}
+          onSurpriseMe={() => setPrompt("Surprise me")}
+        />
+      </View>
       <CreateButton onPress={handleCreate} />
     </SafeAreaView>
   );
