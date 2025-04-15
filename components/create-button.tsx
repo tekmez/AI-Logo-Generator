@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Stars from "@/assets/icons/stars";
-import usePromptStore from "@/store/store";
+import { usePromptStore } from "@/store/store";
 
 export default function CreateButton() {
   const { prompt } = usePromptStore((state) => state);

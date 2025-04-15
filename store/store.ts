@@ -1,13 +1,23 @@
 import { create } from "zustand";
 
-interface Store {
+interface PromptStore {
   prompt: string;
   setPrompt: (prompt: string) => void;
 }
 
-const usePromptStore = create<Store>((set) => ({
+interface LogoStyleStore {
+  selectedStyle: string;
+  setSelectedStyle: (selectedStyle: string) => void;
+}
+
+const usePromptStore = create<PromptStore>((set) => ({
   prompt: "",
   setPrompt: (prompt) => set({ prompt }),
 }));
 
-export default usePromptStore;
+const useLogoStyleStore = create<LogoStyleStore>((set) => ({
+  selectedStyle: "No Style",
+  setSelectedStyle: (selectedStyle) => set({ selectedStyle }),
+}));
+
+export { usePromptStore, useLogoStyleStore };

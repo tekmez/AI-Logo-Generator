@@ -1,4 +1,4 @@
-interface Logo {
+export interface Logo {
   id: string;
   logoUrl: string;
   prompt: string;
@@ -6,4 +6,8 @@ interface Logo {
   createdAt: Date;
 }
 
-export default Logo;
+export interface LogoStyle {
+  name: string;
+  icon?: React.ReactNode;
+  image?: string;
+}

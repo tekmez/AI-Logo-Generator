@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, TextInput, Keyboard, Pressable } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import usePromptStore from "@/store/store";
+import { usePromptStore } from "@/store/store";
 
 const PromptInput = ({
   setIsFocused,
