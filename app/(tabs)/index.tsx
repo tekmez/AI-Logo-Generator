@@ -4,6 +4,7 @@ import Header from "@/components/header";
 import CreateButton from "@/components/create-button";
 import PromptSection from "@/components/prompt-section";
 import LogoStyles from "@/components/logo-styles";
+import StateChip from "@/components/state-chips";
 export default function Home() {
   return (
     <SafeAreaView className="flex-1 bg-black">
@@ -11,6 +12,7 @@ export default function Home() {
       <BgGradient style={StyleSheet.absoluteFill} />
       <Header />
       <View className="px-6">
+        {/* <StateChip state="loading" /> */}
         <PromptSection />
         <LogoStyles />
       </View>
