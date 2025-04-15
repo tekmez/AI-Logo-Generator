@@ -1,6 +1,7 @@
 import * as admin from "firebase-admin";
 import * as logoApi from "./controller/logoApi";
-import * as aiService from "./services/aiService";
+import * as logoGenerate from "./controller/logoGenerate";
+
 // Firebase Admin Initialize
 admin.initializeApp();
 
@@ -12,4 +13,4 @@ export const deleteLogo = logoApi.deleteLogo;
 export const getAllLogos = logoApi.getAllLogos;
 
 // Logo Generation Controller
-export const generateLogo = aiService.generateLogo;
+export const generateLogo = logoGenerate.generateLogo;
