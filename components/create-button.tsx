@@ -19,7 +19,9 @@ export default function CreateButton({ onPress }: CreateButtonProps) {
           end={{ x: 1, y: 0.5 }}
         >
           <View className="flex-row items-center justify-center p-4 gap-3">
-            <Text className="text-white text-lg font-bold mr-2">Create</Text>
+            <Text className="text-white text-lg mr-2 font-manrope-extrabold">
+              Create
+            </Text>
             <Stars />
           </View>
         </LinearGradient>
