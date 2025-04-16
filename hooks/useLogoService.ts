@@ -1,6 +1,6 @@
 import { httpsCallable } from "firebase/functions";
 import { functions } from "@/firebaseConfig";
-import Logo from "@/types/logo";
+import { Logo } from "@/types/logo";
 
 export const useLogoService = () => {
   // Cloud Functions referansları

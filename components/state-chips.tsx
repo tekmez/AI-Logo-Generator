@@ -1,17 +1,17 @@
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Pressable,
+} from "react-native";
 import React from "react";
 import Loading from "./loading";
 import { LinearGradient } from "expo-linear-gradient";
 import { Image } from "expo-image";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-// State chip types
-type ChipState = "loading" | "success" | "error";
-
-interface StateChipProps {
-  state: ChipState;
-  imageUrl?: string;
-  onPress?: () => void;
-}
+import { useStateChipStore, useLogoStore } from "@/store/store";
+import { router } from "expo-router";
 
 interface TextContentProps {
   title: string;
@@ -78,7 +78,7 @@ const SuccessChip = ({ imageUrl, onPress }: SuccessChipProps) => (
       marginBottom: 12,
     }}
   >
-    <TouchableOpacity
+    <Pressable
       className="flex-row items-center py-3 rounded-2xl h-[70px]"
       onPress={onPress}
     >
@@ -88,7 +88,7 @@ const SuccessChip = ({ imageUrl, onPress }: SuccessChipProps) => (
         <View className="w-[70px] h-[70px] rounded-tl-2xl rounded-bl-2xl bg-white/20" />
       )}
       <TextContent title="Your Design is Ready!" subtitle="Tap to see it." />
-    </TouchableOpacity>
+    </Pressable>
   </LinearGradient>
 );
 
@@ -114,19 +114,27 @@ const ErrorChip = ({ onPress }: ErrorChipProps) => (
 );
 
 // Main state chip
-export default function StateChip({
-  state,
-  imageUrl,
-  onPress,
-}: StateChipProps) {
+export default function StateChip() {
+  const { state, setState } = useStateChipStore((state) => state);
+  const { logoUrl, logoId, clearLogo } = useLogoStore((state) => state);
   // Render the correct component based on the state
+  const handleSuccessPress = async () => {
+    await router.push(`/details/${logoId}`);
+    setState(null);
+    clearLogo();
+  };
   switch (state) {
     case "loading":
       return <LoadingChip />;
     case "success":
-      return <SuccessChip imageUrl={imageUrl} onPress={onPress} />;
+      return (
+        <SuccessChip
+          imageUrl={logoUrl ?? undefined}
+          onPress={handleSuccessPress}
+        />
+      );
     case "error":
-      return <ErrorChip onPress={onPress} />;
+      return <ErrorChip onPress={() => router.push("/")} />;
     default:
       return null;
   }

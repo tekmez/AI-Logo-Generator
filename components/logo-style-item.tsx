@@ -1,9 +1,9 @@
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import { LogoStyle } from "@/types/logo";
-import { useLogoStyleStore } from "@/store/store";
+import { useLogoStore } from "@/store/store";
 import { Image } from "expo-image";
 export default function LogoStyleItem({ logoStyle }: { logoStyle: LogoStyle }) {
-  const { selectedStyle, setSelectedStyle } = useLogoStyleStore();
+  const { selectedStyle, setSelectedStyle } = useLogoStore();
   return (
     <Pressable onPress={() => setSelectedStyle(logoStyle.name)}>
       <View

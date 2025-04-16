@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, TextInput, Keyboard, Pressable } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import { usePromptStore } from "@/store/store";
+import { useLogoStore } from "@/store/store";
 
 const PromptInput = ({
   setIsFocused,
@@ -9,7 +9,7 @@ const PromptInput = ({
   setIsFocused: (isFocused: boolean) => void;
 }) => {
   const maxLength = 500;
-  const { prompt, setPrompt } = usePromptStore((state) => state);
+  const { prompt, setPrompt } = useLogoStore((state) => state);
   const onPromptChange = (text: string) => {
     setPrompt(text);
   };

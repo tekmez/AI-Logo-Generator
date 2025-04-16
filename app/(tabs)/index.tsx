@@ -1,18 +1,10 @@
-import {
-  SafeAreaView,
-  StyleSheet,
-  StatusBar,
-  View,
-  Pressable,
-  Text,
-} from "react-native";
+import { SafeAreaView, StyleSheet, StatusBar, View } from "react-native";
 import BgGradient from "@/components/bg-gradient";
 import Header from "@/components/header";
 import CreateButton from "@/components/create-button";
 import PromptSection from "@/components/prompt-section";
 import LogoStyles from "@/components/logo-styles";
 import StateChip from "@/components/state-chips";
-import { router } from "expo-router";
 export default function Home() {
   return (
     <SafeAreaView className="flex-1 bg-black">
@@ -21,7 +13,7 @@ export default function Home() {
       <Header />
 
       <View className="px-6">
-        {/* <StateChip state="loading" /> */}
+        <StateChip />
         <PromptSection />
         <LogoStyles />
       </View>

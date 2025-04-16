@@ -1,23 +1,37 @@
 import { create } from "zustand";
 
-interface PromptStore {
-  prompt: string;
-  setPrompt: (prompt: string) => void;
-}
-
-interface LogoStyleStore {
+interface LogoStore {
   selectedStyle: string;
   setSelectedStyle: (selectedStyle: string) => void;
+  logoUrl: string | null;
+  setLogoUrl: (logoUrl: string | null) => void;
+  logoId: string | null;
+  setLogoId: (logoId: string | null) => void;
+  prompt: string;
+  setPrompt: (prompt: string) => void;
+  clearLogo: () => void;
 }
 
-const usePromptStore = create<PromptStore>((set) => ({
-  prompt: "",
-  setPrompt: (prompt) => set({ prompt }),
-}));
+interface StateChipStore {
+  state: "loading" | "success" | "error" | null;
+  setState: (state: "loading" | "success" | "error" | null) => void;
+}
 
-const useLogoStyleStore = create<LogoStyleStore>((set) => ({
+const useLogoStore = create<LogoStore>((set) => ({
   selectedStyle: "No Style",
   setSelectedStyle: (selectedStyle) => set({ selectedStyle }),
+  logoUrl: null,
+  setLogoUrl: (logoUrl) => set({ logoUrl }),
+  logoId: null,
+  setLogoId: (logoId) => set({ logoId }),
+  prompt: "",
+  setPrompt: (prompt) => set({ prompt }),
+  clearLogo: () => set({ logoUrl: null, logoId: null, prompt: "" }),
 }));
 
-export { usePromptStore, useLogoStyleStore };
+const useStateChipStore = create<StateChipStore>((set) => ({
+  state: null,
+  setState: (state) => set({ state }),
+}));
+
+export { useLogoStore, useStateChipStore };

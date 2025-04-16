@@ -2,14 +2,40 @@ import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Stars from "@/assets/icons/stars";
-import { usePromptStore } from "@/store/store";
 import { useLogoService } from "@/hooks/useLogoService";
+import { useLogoStore, useStateChipStore } from "@/store/store";
+
 export default function CreateButton() {
-  const { prompt } = usePromptStore((state) => state);
-  const { generateLogo } = useLogoService();
+  const { selectedStyle, setLogoId, setLogoUrl, prompt } = useLogoStore(
+    (state) => state
+  );
+  const { setState } = useStateChipStore((state) => state);
+  const { generateLogo, addLogo } = useLogoService();
   const handleCreate = async () => {
-    const logo = await generateLogo(prompt);
-    console.log(logo);
+    if (!prompt) {
+      return;
+    }
+    setState("loading");
+    const styledPrompt =
+      selectedStyle === "No Style"
+        ? prompt
+        : `${prompt} in ${selectedStyle} style`;
+    const logo = await generateLogo(styledPrompt);
+    if (logo) {
+      const addedLogo = await addLogo({
+        prompt: styledPrompt,
+        logoUrl: logo,
+        style: selectedStyle,
+        createdAt: new Date(),
+      });
+      if (addedLogo) {
+        setLogoId(addedLogo);
+        setLogoUrl(logo);
+        setState("success");
+      }
+    } else {
+      setState("error");
+    }
   };
   return (
     <View className="mt-auto mb-12 px-6 pb-6 pt-3">
