@@ -4,8 +4,9 @@ import {
   TouchableOpacity,
   StyleSheet,
   Pressable,
+  ActivityIndicator,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import Loading from "./loading";
 import { LinearGradient } from "expo-linear-gradient";
 import { Image } from "expo-image";
@@ -68,29 +69,46 @@ interface SuccessChipProps {
   onPress?: () => void;
 }
 
-const SuccessChip = ({ imageUrl, onPress }: SuccessChipProps) => (
-  <LinearGradient
-    colors={["#2938DC", "#943DFF"]}
-    start={{ x: 0, y: 1 }}
-    end={{ x: 1, y: 0 }}
-    style={{
-      borderRadius: 16,
-      marginBottom: 12,
-    }}
-  >
-    <Pressable
-      className="flex-row items-center py-3 rounded-2xl h-[70px]"
-      onPress={onPress}
+const SuccessChip = ({ imageUrl, onPress }: SuccessChipProps) => {
+  const [loading, setLoading] = useState(true);
+  return (
+    <LinearGradient
+      colors={["#2938DC", "#943DFF"]}
+      start={{ x: 0, y: 1 }}
+      end={{ x: 1, y: 0 }}
+      style={{
+        borderRadius: 16,
+        marginBottom: 12,
+      }}
     >
-      {imageUrl ? (
-        <Image source={imageUrl} contentFit="cover" style={styles.chipImage} />
-      ) : (
-        <View className="w-[70px] h-[70px] rounded-tl-2xl rounded-bl-2xl bg-white/20" />
-      )}
-      <TextContent title="Your Design is Ready!" subtitle="Tap to see it." />
-    </Pressable>
-  </LinearGradient>
-);
+      <Pressable
+        className="flex-row items-center py-3 rounded-2xl h-[70px]"
+        onPress={onPress}
+      >
+        {imageUrl ? (
+          <>
+            <Image
+              source={imageUrl}
+              contentFit="cover"
+              style={styles.chipImage}
+              onLoadStart={() => setLoading(true)}
+              onLoadEnd={() => setLoading(false)}
+            />
+            {/* Loading state while image is loading */}
+            {loading && (
+              <View className="justify-center items-center w-[70px] h-[70px] absolute top-0 left-0">
+                <Loading />
+              </View>
+            )}
+          </>
+        ) : (
+          <View className="w-[70px] h-[70px] rounded-tl-2xl rounded-bl-2xl bg-white/20" />
+        )}
+        <TextContent title="Your Design is Ready!" subtitle="Tap to see it." />
+      </Pressable>
+    </LinearGradient>
+  );
+};
 
 // Error state chip
 interface ErrorChipProps {
