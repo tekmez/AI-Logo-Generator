@@ -7,6 +7,11 @@ const prompts = [
   "A luxury fashion brand logo in black and gold, with elegant serif letters and a monogram icon.",
   "A vintage coffee shop logo with retro badges, warm colors, and classic fonts.",
   "A bold esports team logo with a fierce animal mascot, vibrant colors, and dynamic typography.",
+  "A geometric animal logo in a modern polygonal style with bold colors.",
+  "A vintage-inspired logo with textured typography and classic emblem shapes.",
+  "A minimalist black and white logo using negative space to create a hidden symbol.",
+  "A colorful abstract logo representing innovation and creativity with fluid shapes.",
+  "A hand-lettered artisanal logo for a small craft brand, with natural textures and warm tones.",
 ];
 
 const InputHeader = () => {

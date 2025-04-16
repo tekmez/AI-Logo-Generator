@@ -24,10 +24,10 @@ export const useLogoService = () => {
     { success: boolean }
   >(functions, "deleteLogo");
 
-  const getAllLogosFunction = httpsCallable<void, Logo[]>(
-    functions,
-    "getAllLogos"
-  );
+  const getAllLogosFunction = httpsCallable<
+    void,
+    { success: boolean; logos: Logo[] }
+  >(functions, "getAllLogos");
 
   const generateLogoFunction = httpsCallable<
     { prompt: string },
@@ -87,7 +87,7 @@ export const useLogoService = () => {
   const getAllLogos = async (): Promise<Logo[]> => {
     try {
       const response = await getAllLogosFunction();
-      return response.data;
+      return response.data.logos;
     } catch (error) {
       console.error("Fetch all logos failed", error);
       return [];
