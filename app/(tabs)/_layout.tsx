@@ -3,6 +3,7 @@ import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { BlurView } from "expo-blur";
 import { StyleSheet } from "react-native";
+import { Platform } from "react-native";
 
 export default function TabsLayout() {
   return (
@@ -13,7 +14,7 @@ export default function TabsLayout() {
         tabBarBackground: () => (
           <BlurView
             tint="dark"
-            intensity={30}
+            intensity={Platform.OS === "android" ? 80 : 30}
             style={StyleSheet.absoluteFill}
           />
         ),

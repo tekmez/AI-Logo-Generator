@@ -5,6 +5,7 @@ import {
   StatusBar,
   StyleSheet,
   Dimensions,
+  Platform,
 } from "react-native";
 import BgGradient from "@/components/bg-gradient";
 import { Image } from "expo-image";
@@ -29,7 +30,9 @@ export default function DetailsScreen() {
     handleGetLogo();
   }, []);
   return (
-    <SafeAreaView className="flex-1 bg-black">
+    <SafeAreaView
+      className={`flex-1 bg-black ${Platform.OS === "android" ? "pt-20" : ""}`}
+    >
       <StatusBar barStyle="light-content" />
       <BgGradient style={StyleSheet.absoluteFill} />
       <View className="flex-1 px-6">

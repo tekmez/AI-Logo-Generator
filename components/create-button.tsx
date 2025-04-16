@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, Platform } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Stars from "@/assets/icons/stars";
 import { useLogoService } from "@/hooks/useLogoService";
@@ -38,7 +38,11 @@ export default function CreateButton() {
     }
   };
   return (
-    <View className="mt-auto mb-12 px-6 pb-6 pt-3">
+    <View
+      className={`mt-auto ${
+        Platform.OS === "android" ? "mb-safe-or-20" : "mb-safe-or-12"
+      } px-6 pb-6 pt-3`}
+    >
       <TouchableOpacity
         onPress={handleCreate}
         className="rounded-full overflow-hidden"

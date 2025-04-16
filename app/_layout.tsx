@@ -3,6 +3,8 @@ import "@/assets/styles/global.css";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
+import React from "react";
+import { StatusBar } from "expo-status-bar";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -28,14 +30,17 @@ export default function RootLayout() {
   }
 
   return (
-    <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="(tabs)" />
-      <Stack.Screen
-        name="details/[id]"
-        options={{
-          presentation: "fullScreenModal",
-        }}
-      />
-    </Stack>
+    <>
+      <StatusBar style="light" />
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="(tabs)" />
+        <Stack.Screen
+          name="details/[id]"
+          options={{
+            presentation: "fullScreenModal",
+          }}
+        />
+      </Stack>
+    </>
   );
 }

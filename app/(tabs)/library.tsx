@@ -11,6 +11,7 @@ import {
   FlatList,
   TouchableOpacity,
   RefreshControl,
+  Platform,
 } from "react-native";
 import { Logo } from "@/types/logo";
 import { router } from "expo-router";
@@ -37,7 +38,9 @@ export default function Library() {
   }, [fetchLogos]);
 
   return (
-    <SafeAreaView className="flex-1 bg-black">
+    <SafeAreaView
+      className={`flex-1 bg-black ${Platform.OS === "android" ? "pt-20" : ""}`}
+    >
       <StatusBar barStyle="light-content" />
       <BgGradient style={StyleSheet.absoluteFill} />
 
@@ -50,6 +53,7 @@ export default function Library() {
           keyExtractor={(item) => item.id}
           horizontal={false}
           numColumns={2}
+          showsVerticalScrollIndicator={false}
           columnWrapperStyle={{
             justifyContent: "space-around",
             flex: 1,
