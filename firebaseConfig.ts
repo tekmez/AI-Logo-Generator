@@ -18,9 +18,9 @@ const db = getFirestore(app);
 const functions = getFunctions(app);
 
 // Yerel geliştirme sırasında emülatör için
-if (__DEV__) {
-  connectFunctionsEmulator(functions, "localhost", 5001);
-}
+// if (__DEV__) {
+//   connectFunctionsEmulator(functions, "localhost", 5001);
+// }
 
 export { db, functions };
 // For more information on how to access Firebase in your project,
