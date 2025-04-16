@@ -55,7 +55,7 @@ const LoadingChip = () => (
       </View>
       <TextContent
         title="Creating Your Design..."
-        subtitle="Ready in 2 minutes"
+        subtitle="Ready in 30 seconds"
         classNameSubtitle="text-gray-400"
       />
     </View>
