@@ -4,13 +4,13 @@ import { getFunctions, connectFunctionsEmulator } from "firebase/functions";
 
 // Initialize Firebase
 const firebaseConfig = {
-  apiKey: process.env.EXPO_PUBLIC_FIREBASE_API_KEY,
-  authDomain: process.env.EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.EXPO_PUBLIC_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.EXPO_PUBLIC_FIREBASE_APP_ID,
-  measurementId: process.env.EXPO_PUBLIC_FIREBASE_MEASUREMENT_ID,
+  apiKey: "AIzaSyCsEmgG6POgfoMgwmp60vy9nA1R-Argr9Y",
+  authDomain: "ai-logo-generator-a664d.firebaseapp.com",
+  projectId: "ai-logo-generator-a664d",
+  storageBucket: "ai-logo-generator-a664d.firebasestorage.app",
+  messagingSenderId: "160136341146",
+  appId: "1:160136341146:web:0eafde5185e3858aa56123",
+  measurementId: "G-G6HS4YHG97",
 };
 
 const app = initializeApp(firebaseConfig);
